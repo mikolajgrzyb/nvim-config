@@ -16,9 +16,29 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
+    { "tiagovla/tokyodark.nvim" },
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+    -- add LazyVim and import its plugins
+    { import = "lazyvim.plugins.extras.lang.json" },
+
+    { import = "lazyvim.plugins.extras.lang.angular" },
+
+    { import = "lazyvim.plugins.extras.lang.go" },
+
+    { import = "lazyvim.plugins.extras.lang.php" },
+
+    { import = "lazyvim.plugins.extras.lang.docker" },
+
+    { import = "lazyvim.plugins.extras.lang.astro" },
+
+    { import = "lazyvim.plugins.extras.lang.sql" },
+
+    { import = "lazyvim.plugins.extras.lang.python" },
+
+    { import = "lazyvim.plugins.extras.linting.eslint" },
+
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
+
     { import = "plugins" },
   },
   defaults = {
