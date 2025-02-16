@@ -17,22 +17,16 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     {
-      "tiagovla/tokyodark.nvim",
-    },
-    { "rmehri01/onenord.nvim" },
-    {
       "projekt0n/github-nvim-theme",
       name = "github-theme",
       lazy = false, -- make sure we load this during startup if it is your main colorscheme
       priority = 1000, -- make sure to load this before all the other start plugins
-      config = function()
-        vim.cmd("colorscheme github_dark")
-      end,
     },
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- add LazyVim and import its plugins
     { import = "lazyvim.plugins.extras.lang.json" },
 
+    { "echasnovski/mini.nvim", version = "*" },
     { import = "lazyvim.plugins.extras.lang.angular" },
 
     { import = "lazyvim.plugins.extras.lang.go" },
@@ -62,7 +56,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "onenord", "tokyonight", "habamax" } },
+  install = { colorscheme = { "habamax" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update

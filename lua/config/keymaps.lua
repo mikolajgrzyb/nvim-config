@@ -53,3 +53,22 @@ vim.keymap.set("n", "<C-x>", function()
   vim.cmd("e " .. new_file)
   vim.cmd("bd #")
 end, opts)
+
+vim.keymap.set("n", "<leader>yp", function()
+  local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1] -- Get Git root
+  local path = vim.fn.expand("%:p") -- Full file path
+  local rel_path = string.gsub(path, root .. "/", "") -- Strip root path
+  vim.fn.setreg("+", rel_path) -- Copy to clipboard
+  print("Copied: " .. rel_path) -- Show message
+end, opts)
+
+local namu = require("namu.namu_symbols")
+local colorscheme = require("namu.colorscheme")
+vim.keymap.set("n", "<leader>ss", namu.show, {
+  desc = "Jump to LSP symbol",
+  silent = true,
+})
+vim.keymap.set("n", "<leader>th", colorscheme.show, {
+  desc = "Colorscheme Picker",
+  silent = true,
+})
