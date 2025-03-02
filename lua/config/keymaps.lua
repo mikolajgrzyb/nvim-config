@@ -60,7 +60,7 @@ vim.keymap.set("n", "<leader>yp", function()
   local rel_path = string.gsub(path, root .. "/", "") -- Strip root path
   vim.fn.setreg("+", rel_path) -- Copy to clipboard
   print("Copied: " .. rel_path) -- Show message
-end, opts)
+end, { silent = true, noremap = true, desc = "copy current file path" })
 
 local namu = require("namu.namu_symbols")
 local colorscheme = require("namu.colorscheme")
@@ -72,3 +72,23 @@ vim.keymap.set("n", "<leader>th", colorscheme.show, {
   desc = "Colorscheme Picker",
   silent = true,
 })
+
+local map = vim.keymap.set
+
+-- Goto Preview Key Mappings
+map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { desc = "Preview Definition" })
+map(
+  "n",
+  "gpt",
+  "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+  { desc = "Preview Type Definition" }
+)
+map(
+  "n",
+  "gpi",
+  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+  { desc = "Preview Implementation" }
+)
+map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", { desc = "Preview Declaration" })
+map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", { desc = "Close All Previews" })
+map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { desc = "Preview References" })

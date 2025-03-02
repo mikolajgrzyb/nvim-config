@@ -44,6 +44,13 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.linting.eslint" },
 
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+    -- {
+    --   "ray-x/lsp_signature.nvim",
+    --   event = "InsertEnter",
+    --   opts = {
+    --     -- cfg options
+    --   },
+    -- },
 
     { import = "plugins" },
   },
