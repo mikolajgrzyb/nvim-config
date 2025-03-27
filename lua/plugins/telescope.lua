@@ -1,12 +1,12 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Find marks" },
     { '<leader>f"', "<cmd>Telescope registers<cr>", desc = "Find registers" },
   },
-  opts = {
-    defaults = {
+  opts = function(_, opts)
+    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
+
       path_display = { "smart" },
       layout_strategy = "horizontal",
       layout_config = {
@@ -17,6 +17,6 @@ return {
         },
       },
       borders = {},
-    },
-  },
+    })
+  end,
 }
