@@ -14,17 +14,6 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-local namu = require("namu.namu_symbols")
-local colorscheme = require("namu.colorscheme")
-vim.keymap.set("n", "<leader>ss", namu.show, {
-  desc = "Jump to LSP symbol",
-  silent = true,
-})
-vim.keymap.set("n", "<leader>th", colorscheme.show, {
-  desc = "Colorscheme Picker",
-  silent = true,
-})
-
 vim.keymap.set({ "n" }, "<C-k>", function()
   require("lsp_signature").toggle_float_win()
 end, { silent = true, noremap = true, desc = "toggle signature" })
@@ -32,3 +21,28 @@ end, { silent = true, noremap = true, desc = "toggle signature" })
 vim.keymap.set({ "n" }, "<Leader>k", function()
   vim.lsp.buf.signature_help()
 end, { silent = true, noremap = true, desc = "toggle signature" })
+
+local function filterDuplicates(array)
+  local uniqueArray = {}
+  for _, tableA in ipairs(array) do
+    local isDuplicate = false
+    for _, tableB in ipairs(uniqueArray) do
+      if vim.deep_equal(tableA, tableB) then
+        isDuplicate = true
+        break
+      end
+    end
+    if not isDuplicate then
+      table.insert(uniqueArray, tableA)
+    end
+  end
+  return uniqueArray
+end
+
+local function on_list(options)
+  options.items = filterDuplicates(options.items)
+  vim.fn.setqflist({}, " ", options)
+  vim.cmd("botright copen")
+end
+
+vim.lsp.buf.references(nil, { on_list = on_list })

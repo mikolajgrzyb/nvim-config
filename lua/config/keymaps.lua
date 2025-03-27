@@ -62,33 +62,23 @@ vim.keymap.set("n", "<leader>yp", function()
   print("Copied: " .. rel_path) -- Show message
 end, { silent = true, noremap = true, desc = "copy current file path" })
 
-local namu = require("namu.namu_symbols")
-local colorscheme = require("namu.colorscheme")
-vim.keymap.set("n", "<leader>ss", namu.show, {
-  desc = "Jump to LSP symbol",
-  silent = true,
-})
-vim.keymap.set("n", "<leader>th", colorscheme.show, {
-  desc = "Colorscheme Picker",
-  silent = true,
-})
+local builtin = require("telescope.builtin")
 
-local map = vim.keymap.set
+vim.keymap.set("n", "<leader><space>", function()
+  builtin.find_files({
+    path_display = { "smart" },
+    borders = {},
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        width = { padding = 0 },
+        height = { padding = 0 },
+        preview_width = 0.5,
+      },
+    },
+  })
+end, { desc = "Find Files (vertical layout)" })
 
--- Goto Preview Key Mappings
-map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", { desc = "Preview Definition" })
-map(
-  "n",
-  "gpt",
-  "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
-  { desc = "Preview Type Definition" }
-)
-map(
-  "n",
-  "gpi",
-  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-  { desc = "Preview Implementation" }
-)
-map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>", { desc = "Preview Declaration" })
-map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", { desc = "Close All Previews" })
-map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", { desc = "Preview References" })
+vim.keymap.set("n", "<leader>fe", function()
+  require("neo-tree.command").execute({ toggle = true, position = "float" })
+end, { desc = "Toggle Neo-tree (float)" })
