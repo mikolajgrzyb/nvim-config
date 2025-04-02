@@ -42,7 +42,13 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.python" },
 
     { import = "lazyvim.plugins.extras.linting.eslint" },
+    { "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
 
+    {
+      "scottmckendry/cyberdream.nvim",
+      lazy = false,
+      priority = 1000,
+    },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
     -- {
     --   "ray-x/lsp_signature.nvim",

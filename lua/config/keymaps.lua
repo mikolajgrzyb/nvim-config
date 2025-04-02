@@ -62,47 +62,99 @@ vim.keymap.set("n", "<leader>yp", function()
   print("Copied: " .. rel_path) -- Show message
 end, { silent = true, noremap = true, desc = "copy current file path" })
 
-local builtin = require("telescope.builtin")
-local design = {
-  path_display = { "smart" },
-  sorting_strategy = "ascending",
-  borders = {},
-  borderchars = { "", "", "", "", "", "", "", "" },
-  layout_config = {
-    horizontal = {
-      prompt_position = "top",
-      width = { padding = 0 },
-      height = { padding = 0 },
-      preview_width = 0.5,
-    },
-  },
-}
-vim.keymap.set("n", "<leader>ff", function()
-  builtin.find_files(vim.tbl_deep_extend("force", {}, design))
-end, { desc = "Find Files (custom layout)" })
+vim.keymap.set({ "n", "x" }, "d", '"_d', { desc = "Delete without yanking" })
+vim.keymap.set({ "n", "x" }, "c", '"_c', { desc = "Change without yanking" })
 
-vim.keymap.set("n", "<leader><space>", function()
-  builtin.find_files(vim.tbl_deep_extend("force", {}, design))
-end, { desc = "Find Files (custom layout)" })
-
-vim.keymap.set("n", "<leader>fF", function()
-  builtin.find_files(vim.tbl_deep_extend("force", {
-    cwd = require("lazyvim.util").root(),
-  }, design))
-end, { desc = "Find Files (Root Dir)" })
-
--- 🔍 Live Grep from current working directory
-vim.keymap.set("n", "<leader>sg", function()
-  builtin.live_grep(vim.tbl_deep_extend("force", {}, design))
-end, { desc = "Live Grep (custom layout)" })
-
--- 🔍 Live Grep from root directory
-vim.keymap.set("n", "<leader>sG", function()
-  builtin.live_grep(vim.tbl_deep_extend("force", {
-    cwd = require("lazyvim.util").root(),
-  }, design))
-end, { desc = "Live Grep (root dir, custom layout)" })
-
-vim.keymap.set("n", "<leader>fe", function()
-  require("neo-tree.command").execute({ toggle = true, position = "float" })
-end, { desc = "Toggle Neo-tree (float)" })
+-- local builtin = require("telescope.builtin")
+-- local design = {
+--   path_display = { "smart" },
+--   sorting_strategy = "ascending",
+--   borders = {},
+--   borderchars = { "", "", "", "", "", "", "", "" },
+--   layout_config = {
+--     horizontal = {
+--       prompt_position = "top",
+--       width = { padding = 0 },
+--       height = { padding = 0 },
+--       preview_width = 0.5,
+--     },
+--   },
+-- }
+-- vim.keymap.set("n", "<leader>ff", function()
+--   builtin.find_files(vim.tbl_deep_extend("force", {}, design))
+-- end, { desc = "Find Files (custom layout)" })
+--
+-- vim.keymap.set("n", "<leader><space>", function()
+--   builtin.find_files(vim.tbl_deep_extend("force", {}, design))
+-- end, { desc = "Find Files (custom layout)" })
+--
+-- vim.keymap.set("n", "<leader>fF", function()
+--   builtin.find_files(vim.tbl_deep_extend("force", {
+--     cwd = require("lazyvim.util").root(),
+--   }, design))
+-- end, { desc = "Find Files (Root Dir)" })
+--
+-- -- 🔍 Live Grep from current working directory
+-- vim.keymap.set("n", "<leader>sg", function()
+--   builtin.live_grep(vim.tbl_deep_extend("force", {}, design))
+-- end, { desc = "Live Grep (custom layout)" })
+--
+-- -- 🔍 Live Grep from root directory
+-- vim.keymap.set("n", "<leader>sG", function()
+--   builtin.live_grep(vim.tbl_deep_extend("force", {
+--     cwd = require("lazyvim.util").root(),
+--   }, design))
+-- end, { desc = "Live Grep (root dir, custom layout)" })
+--
+-- -- <leader>fb → buffers
+-- vim.keymap.set("n", "<leader>fb", function()
+--   builtin.buffers(vim.tbl_deep_extend("force", {}, design))
+-- end, { desc = "Buffers (custom layout)" })
+--
+-- -- <leader>fg → git files
+-- vim.keymap.set("n", "<leader>fg", function()
+--   builtin.git_files(vim.tbl_deep_extend("force", {}, design))
+-- end, { desc = "Git Files (custom layout)" })
+--
+-- -- <leader>fr → recent files (cwd)
+-- vim.keymap.set("n", "<leader>fr", function()
+--   builtin.oldfiles(vim.tbl_deep_extend("force", {
+--     only_cwd = true,
+--   }, design))
+-- end, { desc = "Recent Files (cwd)" })
+--
+-- -- <leader>fR → recent files (root)
+-- vim.keymap.set("n", "<leader>fR", function()
+--   builtin.oldfiles(vim.tbl_deep_extend("force", {
+--     cwd = root(),
+--   }, design))
+-- end, { desc = "Recent Files (root dir)" })
+--
+-- vim.keymap.set("n", "<leader>,", function()
+--   Snacks.picker.buffers({
+--     reverse = true,
+--     layout = {
+--       box = "horizontal",
+--       backdrop = false,
+--       width = 0.8,
+--       height = 0.9,
+--       border = "none",
+--       {
+--         box = "vertical",
+--         { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+--         { win = "input", height = 1, border = "rounded", title = "{title} {live} {flags}", title_pos = "center" },
+--       },
+--       {
+--         win = "preview",
+--         title = "{preview:Preview}",
+--         width = 0.45,
+--         border = "rounded",
+--         title_pos = "center",
+--       },
+--     },
+--   })
+-- end, { desc = "Switch buffer" })
+--
+-- vim.keymap.set("n", "<leader>fe", function()
+--   require("neo-tree.command").execute({ toggle = true, position = "float" })
+-- end, { desc = "Toggle Neo-tree (float)" })
